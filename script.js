@@ -1,14 +1,13 @@
-// create a function called computerPlay
-// create a function that generates a random number between 1 and 3
-// if 1, return 'Rock'
-// if 2, return 'Paper'
-// if 3, return 'Scissors'
+// initializing global variables
 let randomInt = 0;
 let playerSelection = 0;
 let computerSelection = 0;
 let playerScore = 0;
 let computerScore = 0;
+let result = 0;
+const buttons = document.querySelectorAll('button');
 
+// algorithm for getting a random integer
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -17,6 +16,8 @@ function getRandomIntInclusive(min, max) {
     return randomInt;
 }
 
+// uses getRandomIntInclusive() to get 1, 2, or 3 at random
+// rock, paper, and scissors are assigned to 1, 2, and 3, respectively
 function computerPlay() {
     getRandomIntInclusive(1,3);
     if (randomInt === 1) {
@@ -35,70 +36,70 @@ function computerPlay() {
     return computerSelection;
 }
 
-// write a function that plays a round of rock paper scissors
-// take a playerSelection parameter
-// take a computerSelection parameter
-// compare them and calculate a winner 
-// return a string that declares the winner
-
-function playerPlay() {
-    playerSelection = prompt("Do you choose Rock, Paper, or Scissors?").toLowerCase();
-    
-    return playerSelection;
-}
-
-function playRound() {
-    playerPlay();
+// computer takes its turn
+// uses playerSelection from the forEach loop to return which button was pressed
+// begins by restarting the score and wiping the end-game message, if necessary
+// tallies results each round, ending when one player has 5
+function playRound(playerSelection) {
     computerPlay();
+    if (playerScore === 5 || computerScore === 5) { 
+        document.getElementById('outcome').textContent = ''; 
+        playerScore = 0;
+        computerScore = 0;
+    }
+    
     if (playerSelection === computerSelection) {
-        alert('You tied!');
+        result = 'You tied!';
     }
     else if (playerSelection === 'rock' && computerSelection === 'scissors') {
         playerScore++;
-        alert('You won! Rock crushes Scissors.');
+        result = 'You won! Rock crushes Scissors.';
     }
     else if (playerSelection === 'rock' && computerSelection === 'paper') {
         computerScore++;
-        alert('You lost. Rock gets covered by Paper.');
+        result = 'You lost. Rock gets covered by Paper.';
     }
     else if (playerSelection === 'paper' && computerSelection === 'rock') {
         playerScore++;
-        alert('You won! Paper covers Rock.');
+        result = 'You won! Paper covers Rock.';
     }
     else if (playerSelection === 'paper' && computerSelection === 'scissors') {
         computerScore++;
-        alert('You lost. Paper gets cut by Scissors.');
+        result = 'You lost. Paper gets cut by Scissors.';
     }
     else if (playerSelection === 'scissors' && computerSelection === 'paper') {
         playerScore++;
-        alert('You won! Scissors cuts paper.');
+        result = 'You won! Scissors cuts paper.';
     }
     else if (playerSelection === 'scissors' && computerSelection === 'rock') {
         computerScore++;
-        alert('You lost. Scissors gets crushed by rock.');
+        result = 'You lost. Scissors gets crushed by rock.';
     }
     else {
-        alert('There seems to be an error');
+        result = 'There seems to be an error';
     }
-    
-    console.log('You: ' + playerScore + '. Computer: ' + computerScore + '.');
+    checkWinner();
+    document.getElementById('roundResult').textContent = `${result}`;
+    document.getElementById('tally').textContent = `-----You: ${playerScore}. Computer: ${computerScore}.-----`;
 }
 
-function game() {
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    if (playerScore > computerScore) {
-        console.log('Congratulations! You won!');
+// loop that iterates around our button elements
+// >> adds click event listener
+// >> finds which button was pressed
+// >> begins a new round of Rock, Paper, Scissors with that information
+buttons.forEach(function (i) {
+    i.addEventListener('click', () => {
+    playerSelection = i.getAttribute('class');
+    playRound(playerSelection);
+    })
+});
+
+
+function checkWinner() {
+    if ( playerScore === 5 ) {
+        document.getElementById('outcome').textContent = 'Congratulations! You won! Feel free to play again.';
     }
-    else if (playerScore < computerScore) {
-        console.log('The computer beat you this time.');
+    else if (computerScore === 5 ) {
+        document.getElementById('outcome').textContent = 'The computer beat you this time. Feel free to play again.';
        }
-    else {
-    console.log('Looks like a tie!');
-    }
-    playerScore = 0;
-    computerScore = 0;
-}
+    };
