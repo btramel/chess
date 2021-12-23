@@ -49,38 +49,38 @@ function playRound(playerSelection) {
     }
     
     if (playerSelection === computerSelection) {
-        result = 'You tied!';
+        result = `You tied... That's kinda lame.`;
     }
     else if (playerSelection === 'rock' && computerSelection === 'scissors') {
         playerScore++;
-        result = 'You won! Rock crushes Scissors.';
+        result = 'You won! Rock smashes Scissors.';
     }
     else if (playerSelection === 'rock' && computerSelection === 'paper') {
         computerScore++;
-        result = 'You lost. Rock gets covered by Paper.';
+        result = 'You lost... Rock gets covered by Paper.';
     }
     else if (playerSelection === 'paper' && computerSelection === 'rock') {
         playerScore++;
-        result = 'You won! Paper covers Rock.';
+        result = 'You won! Paper smothers Rock.';
     }
     else if (playerSelection === 'paper' && computerSelection === 'scissors') {
         computerScore++;
-        result = 'You lost. Paper gets cut by Scissors.';
+        result = 'You lost... Paper gets cut by Scissors.';
     }
     else if (playerSelection === 'scissors' && computerSelection === 'paper') {
         playerScore++;
-        result = 'You won! Scissors cuts paper.';
+        result = 'You won! Scissors eviscerates Paper.';
     }
     else if (playerSelection === 'scissors' && computerSelection === 'rock') {
         computerScore++;
-        result = 'You lost. Scissors gets crushed by rock.';
+        result = 'You lost... Scissors gets crushed by Rock.';
     }
     else {
-        result = 'There seems to be an error';
+        result = 'There seems to be an error.';
     }
     checkWinner();
     document.getElementById('roundResult').textContent = `${result}`;
-    document.getElementById('tally').textContent = `-----You: ${playerScore}. Computer: ${computerScore}.-----`;
+    document.getElementById('tally').textContent = `You: ${playerScore} | Computer: ${computerScore}`;
 }
 
 // loop that iterates around our button elements
